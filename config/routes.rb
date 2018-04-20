@@ -3,6 +3,7 @@ Rails.application.routes.draw do
  
 
   resources :users
+  resources :account_activations, only: [:edit]
 
   root "static_pages#home"
   get "/help", to: "static_pages#help"  
@@ -14,4 +15,5 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
+
 end
