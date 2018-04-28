@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-
+  has_many :microposts, dependent: :destroy
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -57,6 +57,10 @@ class User < ApplicationRecord
   end
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  def feed
+    Micropost.where("user_id = ?", id)
   end
 
   private
